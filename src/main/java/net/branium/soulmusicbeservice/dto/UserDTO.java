@@ -1,7 +1,6 @@
 package net.branium.soulmusicbeservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import net.branium.soulmusicbeservice.model.Playlist;

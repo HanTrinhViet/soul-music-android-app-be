@@ -67,4 +67,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
         return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(PlaylistNotFoundException.class)
+    public ResponseEntity<ErrorDTO> handlePlaylistNotFoundException(HttpServletRequest httpServletRequest, UserNotFoundException ex) {
+        ErrorDTO errorDTO = ErrorDTO.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .path(httpServletRequest.getServletPath())
+                .errors(List.of(ex.getMessage()))
+                .build();
+        return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
+    }
 }
