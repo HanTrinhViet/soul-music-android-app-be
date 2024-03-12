@@ -1,0 +1,17 @@
+server:
+  port: 1234
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/soul_music
+    username: postgres
+    password: MaiAnhDo06102001@
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect:  org.hibernate.dialect.PostgreSQLDialect
