@@ -1,5 +1,6 @@
 package net.branium.soulmusicbeservice.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,6 +29,7 @@ public class Playlist {
     private String image;
 
     @Column(name = "song_number")
+    @JsonProperty(value = "song_number")
     private Integer songNumber;
 
     @ManyToMany

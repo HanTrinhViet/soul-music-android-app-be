@@ -28,10 +28,6 @@ public class UserDTO {
     @JsonProperty("email")
     private String email;
 
-    @NotNull(message = "USER'S PASSWORD MUST NOT BE NULL")
-    @JsonProperty(value = "password")
-    private String password;
-
     @JsonProperty(value = "playlists")
     private List<Playlist> playlists = new ArrayList<>();
 
@@ -46,15 +42,5 @@ public class UserDTO {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 }

@@ -47,6 +47,12 @@ public class UserApiController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping()
+    public ResponseEntity<?> updateUser(@RequestBody User requestUser) {
+        userService.updateUser(requestUser);
+        return ResponseEntity.noContent().build();
+    }
+
 //    @GetMapping("/{id}")
 //    public ResponseEntity<UserDTO> getUserDetailById(@PathVariable(value = "id") String uuid) {
 //

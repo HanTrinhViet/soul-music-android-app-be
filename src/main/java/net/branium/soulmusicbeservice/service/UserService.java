@@ -6,4 +6,5 @@ public interface UserService {
     User createUser(User user);
     User getUserById(String uuid);
     void deleteUserById(String uuid);
+    void updateUser(User requestUser);
 }

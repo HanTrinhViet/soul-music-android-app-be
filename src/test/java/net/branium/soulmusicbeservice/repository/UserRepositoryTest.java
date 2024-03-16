@@ -54,7 +54,6 @@ class UserRepositoryTest {
                 .id("fIKFojmlBMP5f0s8r2hYpSv32l12")
                 .username("viethantrinh")
                 .email("hntrnn195@gmail.com")
-                .password("123456")
                 .playlists(Arrays.asList(playlist1, playlist2))
                 .build();
 

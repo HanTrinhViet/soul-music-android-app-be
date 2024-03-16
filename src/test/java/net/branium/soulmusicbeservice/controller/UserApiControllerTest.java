@@ -51,14 +51,12 @@ class UserApiControllerTest {
         UserDTO userDTO = UserDTO.builder()
                 .username("viethantrinh")
                 .email("hntrnn12@gmail.com")
-                .password("MaiAnhDo06102001@")
                 .build();
 
         User user = User.builder()
                 .id(UUID.randomUUID().toString())
                 .username("viethantrinh")
                 .email("hntrnn12@gmail.com")
-                .password("MaiAnhDo06102001@")
                 .build();
 
         when(userMapper.toUser(any(UserDTO.class))).thenReturn(user);
