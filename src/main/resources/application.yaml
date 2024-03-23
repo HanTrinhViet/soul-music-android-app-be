@@ -3,9 +3,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/soul_music
-    username: postgres
+    url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres
+    username: postgres.ycsjrgdhzgnqtonllbxn
     password: MaiAnhDo06102001@
+
 
   jpa:
     show-sql: true
