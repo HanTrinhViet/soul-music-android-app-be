@@ -1,7 +1,7 @@
 package net.branium.soulmusicbeservice.util;
 
 public class Constants {
-    public static final String BASE_PATH = "http://localhost:1234";
+    public static final String BASE_PATH = "http://localhost:8080";
     public static final String API_PATH = "/api";
     public static final String FULL_PATH = BASE_PATH + API_PATH;
     public static String SONG_API_PATH = "https://thantrieu.com/resources/braniumapis/song.json";
