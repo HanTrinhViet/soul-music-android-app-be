@@ -1,12 +1,16 @@
 package net.branium.soulmusicbeservice.controller;
 
 import net.branium.soulmusicbeservice.model.Playlist;
+import net.branium.soulmusicbeservice.model.User;
 import net.branium.soulmusicbeservice.service.PlaylistService;
 import net.branium.soulmusicbeservice.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(Constants.API_PATH + "/playlists")
@@ -18,18 +22,22 @@ public class PlaylistApiController {
         this.playlistService = playlistService;
     }
 
-    @PostMapping()
-    public ResponseEntity<Playlist> createPlaylist(@RequestBody Playlist playlist) {
-        return new ResponseEntity<>(
-                playlistService.createPlaylist(playlistService.createPlaylist(playlist)),
-                HttpStatus.CREATED);
+    @GetMapping("/users/{id}")
+    public ResponseEntity<List<Playlist>> getPlaylistsByUserId(@PathVariable(value = "id") String uuid) {
+        var playlists = playlistService.getPlaylistsByUserId(uuid);
+        return ResponseEntity.ok(playlists);
+    }
+
+    @PostMapping(value = "/users/{id}")
+    public ResponseEntity<Playlist> createPlaylist(@RequestBody Playlist playlist, @PathVariable("id") String uuid) {
+        Playlist createdPlaylist = playlistService.createPlaylist(playlist, uuid);
+        return new ResponseEntity<>(createdPlaylist, HttpStatus.CREATED);
     }
 
     @PutMapping()
     public ResponseEntity<Playlist> updatePlaylist(@RequestBody Playlist playlist) {
-        return new ResponseEntity<>(
-                playlistService.updatePlaylist(playlistService.createPlaylist(playlist)),
-                HttpStatus.OK);
+        Playlist updatedPlaylist = playlistService.updatePlaylist(playlist);
+        return new ResponseEntity<>(updatedPlaylist, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

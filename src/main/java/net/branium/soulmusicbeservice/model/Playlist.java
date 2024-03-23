@@ -1,5 +1,6 @@
 package net.branium.soulmusicbeservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,13 +33,19 @@ public class Playlist {
     @JsonProperty(value = "song_number")
     private Integer songNumber;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "playlists_songs",
             joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "song_id", referencedColumnName = "id")
     )
+    @JsonProperty(value = "songs")
     private List<Song> songs = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
 
 
@@ -62,6 +69,8 @@ public class Playlist {
                 ", title='" + title + '\'' +
                 ", image='" + image + '\'' +
                 ", songNumber=" + songNumber +
+                ", user=" + user +
+                ", songs=" + songs +
                 '}';
     }
 }

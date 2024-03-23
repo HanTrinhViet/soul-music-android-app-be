@@ -34,13 +34,6 @@ public class UserApiController {
         return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
     }
 
-
-    @GetMapping("/{id}/playlists")
-    public ResponseEntity<List<Playlist>> getUserPlaylistById(@PathVariable(value = "id") String uuid) {
-        User user = userService.getUserById(uuid);
-        return ResponseEntity.ok(userMapper.toUserDTO(user).getPlaylists());
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable(value = "id") String uuid) {
         userService.deleteUserById(uuid);

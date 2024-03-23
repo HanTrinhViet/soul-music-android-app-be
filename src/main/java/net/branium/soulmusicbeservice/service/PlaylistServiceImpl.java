@@ -6,22 +6,35 @@ import net.branium.soulmusicbeservice.mapper.PlaylistMapper;
 import net.branium.soulmusicbeservice.model.Playlist;
 import net.branium.soulmusicbeservice.model.User;
 import net.branium.soulmusicbeservice.repository.PlaylistRepository;
+import net.branium.soulmusicbeservice.repository.UserRepository;
+import net.branium.soulmusicbeservice.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PlaylistServiceImpl implements PlaylistService {
     private PlaylistRepository playlistRepo;
+    private UserRepository userRepo;
     private PlaylistMapper playlistMapper;
 
     @Autowired
-    public PlaylistServiceImpl(PlaylistRepository playlistRepo, PlaylistMapper playlistMapper) {
+    public PlaylistServiceImpl(PlaylistRepository playlistRepo, UserRepository userRepo, PlaylistMapper playlistMapper) {
         this.playlistRepo = playlistRepo;
+        this.userRepo = userRepo;
         this.playlistMapper = playlistMapper;
     }
 
     @Override
-    public Playlist createPlaylist(Playlist playlist) {
+    public Playlist createPlaylist(Playlist playlist, String uuid) {
+        User userFromDB = userRepo.findById(uuid).orElse(null);
+        if (userFromDB == null) {
+            throw new UserNotFoundException("Can not found with id = " + uuid);
+        }
+
+        playlist.setImage(Constants.ALBUM_URL_IMAGE_5);
+        playlist.setUser(userFromDB);
         return playlistRepo.save(playlist);
     }
 
@@ -31,7 +44,8 @@ public class PlaylistServiceImpl implements PlaylistService {
         if (updatedPlaylist == null) {
             throw new PlaylistNotFoundException("Can not found playlist with id = " + playlist.getId());
         }
-        updatedPlaylist = playlistMapper.toUpdatedPlaylist(playlist);
+        updatedPlaylist.setSongNumber(playlist.getSongNumber());
+        updatedPlaylist.setSongs(playlist.getSongs());
         return playlistRepo.save(updatedPlaylist);
     }
 
@@ -42,5 +56,14 @@ public class PlaylistServiceImpl implements PlaylistService {
             throw new PlaylistNotFoundException("Can not found playlist with id = " + id);
         }
         playlistRepo.deleteById(id);
+    }
+
+    @Override
+    public List<Playlist> getPlaylistsByUserId(String uid) {
+        var result = playlistRepo.getPlaylistsByUserId(uid);
+        if (result == null) {
+            throw new UserNotFoundException("Can not found with id = " + uid);
+        }
+        return result;
     }
 }
